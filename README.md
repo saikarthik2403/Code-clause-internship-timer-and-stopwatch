@@ -1,1 +1,1 @@
-# Code-clause-internship-timer-and-stpwatch
+# Code-clause-internship-timer-and-stopwatch
