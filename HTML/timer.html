@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Timer</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins&display=swap");
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #d68233ad 0%, #ffffff 100%);
+      font-family: Verdana;
+    }
+    #display {
+      width: auto;
+      color: black;
+      margin-top: 30px;
+      font-size: 60px;
+      font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    }
+    input {
+      margin-top: 20px;
+      width: 220px;
+      padding: 10px;
+      font-size: 20px;
+    }
+    @media only screen and (max-width: 550px) {
+      #display{
+        font-size: 60px;
+      }
+  }
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <body style="height: 447px;">
+    <h1 class="heading">Enter Start Time</h1>
+    <br />
+    <br />
+    <div oninput="displaymin()">
+      <input type="number" id="minutes" min="0" max="59" placeholder="mins" /> :
+      <input type="number" id="seconds" min="0" max="59" placeholder="secs" />
+    </div>
+    <div id="display">00:00</div>
+    <div>
+      <button id="start" onclick="watch()">Start</button>
+    </div>
+
+    
+    <script>
+      let mins = document.getElementById("minutes");
+      let secs = document.getElementById("seconds");
+      let display = document.getElementById("display");
+      let start = document.getElementById("start");
+      let timer;
+
+      function displaymin() {
+        display.innerHTML =
+          (minutes.value > 9 ? minutes.value : "0" + minutes.value) +
+          ":" +
+          (seconds.value > 9 ? seconds.value : "0" + seconds.value);
+      }
+
+      function watch() {
+        start.disabled = true; 
+        mins.disabled = true;
+        secs.disabled = true;
+        var date1 = new Date(); 
+        var countDownDate = new Date(); 
+        countDownDate.setTime(
+          date1.getTime() +
+            minutes.value * 60 * 1000 +
+            seconds.value * 1000 +
+            1 * 1000
+        );
+
+
+        var x = setInterval(function () {
+    
+          var now = new Date().getTime();
+
+          var distance = countDownDate - now;
+
+
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        
+          display.innerHTML =
+            (minutes > 9 ? minutes : "0" + minutes) +
+            ":" +
+            (seconds > 9 ? seconds : "0" + seconds);
+
+          if (display.innerHTML == "00:00") {
+            clearInterval(x);
+            audio.play();
+          }
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
